@@ -1,0 +1,257 @@
+<html>
+<head> 
+<meta charset="UTF-8">
+<b>XDVNG फाण्ट से यूनिकोड परिवर्तक </b></title> (25-09-2008) 
+
+
+<script type="text/javascript">
+
+function convert_to_unicode()
+{
+
+var array_one = new Array(  
+'z:', 'û', 'ø', 'Q:', '¬', 'q', 'Å', '^:',
+
+'k' ,  'K:' ,  'g:' ,  'G:',
+'V' ,  'K' ,  'g' ,  'G',
+
+'c:' , 'C' ,  'j:' , 'J:' ,
+'c' , 'C' ,  'j' , 'J' ,
+
+'X' , 'Y',  'R' , '\_',  'Z' ,  '`' , 'N:' , 
+'X' , 'Y',  'R' ,                '`' , 'N' , 
+
+'t:'  , 'T:' , 'd',  'D:' ,  'n:',
+'t'  ,  'T' ,  'd',  'D' ,  'n',
+
+'p:' , 'P' ,  'f' ,  'b:' , 'B:' ,  'm:' ,
+'p' ,  'P' ,  'f' ,  'b' ,  'B' ,   'm' ,
+
+'y:',  'r' , 'l:' ,  'v:' ,
+'y',   'r' ,  'l' ,  'v' ,
+
+'s:' ,  'S:'  ,  '\\:' ,   'h',   'x:' ,  'w' ,
+'s' ,   'S'  ,   '\\' ,    'h',   'x' , 
+
+'*:' ,  '¹' ,  'Â:' ,   'É' , 'Ã:' ,   '²' , '\#' ,  '¤' , '½' ,  '$' , 'Ä' , '¶:',  'Æ' , 
+'¢' , '¾' ,  '\)' ,   'Ò' ,  'Ó' ,  'Á:' ,  'À' ,
+
+'A:ð' ,  'A:ò' ,  'A:' ,  'A' ,  'E' , 'I' ,  'u' ,  'U' ,  'Oð' ,  'O' ,  '?' , 
+
+'Ï' , 'Î' , '|' , 'a' , 'i' , 'Ù',  'Û',  'Ø' , 'Ú' , 'Ü' , 'Ý',  'Þ' ,
+
+':ð' ,  'ð' , 'ñ' , ':ò' ,  'ò' , 'ó' , 'ö' , 'ú' , 'H',  'á' , 'à'  ,
+
+'.' 
+
+ )
+
+
+var array_two = new Array(  
+'ज़', 'ँ', 'ं', 'ख़', 'ट्ट', 'क़', 'ष्ठ', 'ग़',
+
+"क",   "ख",   "ग" ,   'घ' ,  
+"क्",   "ख्",   "ग्" ,   'घ्' ,  
+
+'च',   'छ' ,  'ज' ,   'झ' ,
+'च्',   'छ्' ,  'ज्' ,   'झ्' ,
+
+"ट",  "ठ",  "ड",  'ड़' ,  'ढ' ,  'ढ़' ,  "ण" ,
+"ट्",  "ठ्",  "ड्",               'ढ़्' ,  "ण्" ,
+
+"त", "थ",  "द",  "ध",   "न" , 
+"त्", "थ्",  "द्",  "ध्",   "न्" , 
+
+"प", "फ", "फ", "ब", "भ",  "म" ,
+"प्", "फ्", "फ्", "ब्", "भ्",  "म्" ,
+
+"य",   "र",   "ल",  "व",
+"य्",   "र्",   "ल्",  "व्",
+
+"स",  "श",  'ष' , "ह",  'क्ष' ,  'ज्ञ' , 
+"स्",  "श्",  'ष्' , "ह्",  'क्ष्' ,
+
+'त्र' ,  'द्ध' ,  'श्र' , 'ह्म',  'श्व' , 'ड्ड' , 'क्र' , 'ङ्ग' , 'द्य' ,  'ज्र' , 'ष्ट' , 'त्त' , 'हृ' ,
+'ङ्क' ,  'द्व' ,  'प्र' ,  '्र' ,  '्र' , 'श्च' , 'न्न' ,
+
+'ओ' ,  'औ' ,   'आ' ,   'अ' ,   'इ' ,  'ई' ,  'उ' ,  'ऊ' ,  'ऐ' ,  'ए' ,  'ऋ' , 
+
+'्' , '्' , 'ऽ' , "ा",  "ी",  'ु' ,   'ु' ,   'ु' ,  'ु' ,  "ू",  "ू",  "ू",  
+
+"ो",  "े",   "े",   "ौ",  "ै", "ै", 'ं' , 'ँ' , ':' ,   'ृ' , 'ृ' ,   
+
+'।'       )
+
+
+var array_one_length = array_one.length ;
+
+
+if ( (document.getElementById("text_or_html")).selectedIndex == 0 )  // if the input is plain text
+
+   { 
+
+      document.getElementById("unicode_text").value =  "परिवर्तन का कार्य आरम्भ हो गया है.."  ;  
+
+      var modified_substring = document.getElementById("legacy_text").value  ;
+
+
+//****************************************************************************************
+//  Break the long text into small bunches of max. max_text_size  characters each.
+//****************************************************************************************
+    var text_size = document.getElementById("legacy_text").value.length ;
+
+    var processed_text = '' ;  //blank
+
+    var sthiti1 = 0 ;  var sthiti2 = 0 ;  var chale_chalo = 1 ;
+ 
+    var max_text_size = 6000;
+
+    while ( chale_chalo == 1 ) 
+    {
+     sthiti1 = sthiti2 ;
+
+     if ( sthiti2 < ( text_size - max_text_size ) )  
+     { 
+      sthiti2 +=  max_text_size ;
+      while (document.getElementById("legacy_text").value.charAt ( sthiti2 ) != ' ') {sthiti2--;}
+     } 
+     else  { sthiti2 = text_size  ;  chale_chalo = 0 }
+
+      modified_substring = document.getElementById("legacy_text").value.substring ( sthiti1, sthiti2 )  ;
+
+      Replace_Symbols( ) ;
+
+      var processed_text = processed_text + modified_substring ;
+
+//  Breaking part code over
+
+      document.getElementById("unicode_text").value = processed_text  ;
+
+    }
+   }
+
+else    // if input is HTML then
+   {
+
+             //   Can be copied from other converters and pasted here
+
+    } // end of else loop for HTML case
+
+ //--------------------------------------------------
+
+ function Replace_Symbols( )
+    {
+     //substitute array_two elements in place of corresponding array_one elements
+
+     if ( modified_substring != "" )  // if string to be converted is non-blank then no need of any processing.
+        {
+         for(input_symbol_idx = 0;   input_symbol_idx < array_one_length;    input_symbol_idx++ )
+            {
+             indx = 0  ;  // index of the symbol being searched for replacement
+             
+             while (indx != -1 ) //whie-00
+                {
+                 modified_substring = modified_substring.replace( array_one[ input_symbol_idx ] , array_two[input_symbol_idx] )
+                 indx = modified_substring.indexOf( array_one[input_symbol_idx] )
+
+                } // end of while-00 loop
+            } // end of for loop
+
+
+//**********************************************************************************
+// Code for Replacing  Special glyphs
+//**********************************************************************************
+
+//  chhotii 'i' kii maatraa  and its position  correction
+
+  var position_of_i = modified_substring.indexOf( "e" )
+
+  while ( position_of_i != -1 )  //while-02
+  {
+   var charecter_next_to_i = modified_substring.charAt( position_of_i + 1 )
+   var charecter_to_be_replaced = "e" + charecter_next_to_i
+   modified_substring = modified_substring.replace( charecter_to_be_replaced , charecter_next_to_i + "ि" ) 
+   position_of_i = modified_substring.search( /e/ , position_of_i + 1 ) // search for  'o' ahead of the current position.
+
+  } // end of while-02 loop
+
+// following loop to eliminate 'chhotee ee kee maatraa' on half-letters as a result of above transformation.
+
+var position_of_wrong_ee = modified_substring.indexOf( "ि्" ) 
+
+while ( position_of_wrong_ee != -1 )  //while-03
+
+{
+var consonent_next_to_wrong_ee = modified_substring.charAt( position_of_wrong_ee + 2 )
+var charecter_to_be_replaced = "ि्" + consonent_next_to_wrong_ee 
+modified_substring = modified_substring.replace( charecter_to_be_replaced , "्" + consonent_next_to_wrong_ee + "ि" ) 
+position_of_wrong_ee = modified_substring.search( /ि्/ , position_of_wrong_ee + 2 ) // search for 'wrong ee' ahead of the current position. 
+
+} // end of while-03 loop
+
+
+
+//**********************************************************************************
+//Eliminating reph "ü" and putting 'half - r' at proper position for this.
+//**********************************************************************************
+        set_of_matras = "ािीुूृेैोौंःँॅ" 
+         var position_of_reph = modified_substring.indexOf( "ü" )
+
+        while( position_of_reph > 0 )  // while-04
+        {
+             probable_position_of_half_r = position_of_reph - 1 ;
+             var charecter_at_probable_position_of_half_r = modified_substring.charAt( probable_position_of_half_r )
+
+             // trying to find non-maatra position left to current O (ie, half -r).
+
+             while( set_of_matras.match( charecter_at_probable_position_of_half_r ) != null )  // while-05
+                {
+                 probable_position_of_half_r = probable_position_of_half_r - 1 ;
+                 charecter_at_probable_position_of_half_r = modified_substring.charAt( probable_position_of_half_r ) ;
+
+                }// end of while-05
+
+             charecter_to_be_replaced = modified_substring.substr ( probable_position_of_half_r , ( position_of_reph - probable_position_of_half_r ) ) ;
+             new_replacement_string = "र्" + charecter_to_be_replaced ; 
+             charecter_to_be_replaced = charecter_to_be_replaced + "ü" ;
+             modified_substring = modified_substring.replace( charecter_to_be_replaced , new_replacement_string ) ;
+             position_of_reph = modified_substring.indexOf( "ü" ) ;
+         }// end of while-04
+    }//end of IF  statement  meant to  supress processing of  blank  string.
+
+    } // end of the function  Replace_Symbols
+
+ } // end of legacy_to_unicode function
+
+</script>
+</head>
+
+<!-- 
+      body of the HTML starts here. one text box is provided each for input and output. 
+-->
+
+<body>
+<form name="form1">
+
+नीचे के बक्से में XDVNG font का टेक्स्ट डालें: <br/>
+
+<textarea name="TextToConvert" id="legacy_text" cols="80" rows="7"></textarea> <br><br>
+
+उपर दिया हुआ टेक्स्ट सादा टेक्स्ट है या एच टी एम एल? 
+<div > <select id="text_or_html">
+<option>Plain TEXT</option>
+<option>HTML TEXT</option>
+</select> </div> 
+
+<div align="middle">
+<input  type="button" id="converter" name="converter" value="यूनिकोड में बदलें>> " onClick="convert_to_unicode();" accesskey="c" title="??????? alt+c"> 
+</div>  <br>
+उपर के बक्से में दिये टेक्स्ट का यूनिकोड में परिवर्तित रूप: <br/>
+<textarea name="ConvertedText" id="unicode_text" cols="100" rows="13"></textarea>
+<br />
+<b>यूनिकोड, विश्व की गैर-रोमन भाषाओं के लिये वरदान है।</b>
+
+</form>
+</body>
+
+</html>
