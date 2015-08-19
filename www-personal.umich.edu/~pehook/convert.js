@@ -1,41 +1,24 @@
 // Updated August 17, 2015 by Lawrence Hook
 
 $(document).ready( function() {
+	// find all text nods inside a font tag, wrap with toReplace div
 	$('body')
 		.find('*')
 		.contents()
 		.filter( function () {
 			var parentArray = $(this).parents();
-			// console.log(parentArray);
-			// console.log(parentArray.is("font"));
 			return this.nodeType === 3 && parentArray.is("font");
 		})
 		.wrap( '<div class="toReplace"></div>' );
 
+	// Convert content inside toReplace divs
 	$(".toReplace").each( function () {
 		var xdvng_text = $(this).text();
-		// console.log($(this).text());
 		$(this).text(convertToUnicode(xdvng_text));
 	});
 
-	$(".toReplace").contents().unwrap();
-	
-	// var font_sections = $('FONT');
-	// $('FONT').each(function() {
-	// 	$(this).contents()
-	// 		.filter(function() {
-	// 			if (this.childNodes.length > 0) {
-	// 				$.each(this.childNodes, function() {
-	// 					if (this.nodeType === 3) {
-	// 						this.wrap( '<div class="toReplace"></div>' );
-	// 					}
-	// 					// console.log(this.nodeType);
-	// 				})
-	// 			}
- //      			return this.nodeType === 3;
- //    		})
- //    		.wrap( '<div class="toReplace"></div>' );
-	// });
+	// Remove toReplace divs
+	$(".toReplace").contents().unwrap();	
 });
 
 function wrapText () {
@@ -129,7 +112,7 @@ var xdvng_charset = [
 	'y', 'r', 'l', 'v',
 	's:', 'S:', '\\:', 'h', 'x:', 'w',
 	's', 'S', '\\', 'h', 'x', 
-	'*:', '¹', 'Â:', 'É', 'Ã:', '²', '\#', '¤', '½', '$', 'Ä', '¶:', 'Æ',
+	'*:', '¹', 'Â:', 'É', 'Ã:', '²', '\-','\#', '¤', '½', '$', 'Ä', '¶:', 'Æ',
 	'¢', '¾', '\)', 'Ò', 'Ó', 'Á:', 'À',
 	'A:ð', 'A:ò', 'A:', 'A', 'E', 'I', 'u', 'U', 'Oð', 'O', '?',
 	'Ï', 'Î', '|', 'a', 'i', 'Ù', 'Û', 'Ø', 'Ú', 'Ü', 'Ý', 'Þ',
@@ -153,7 +136,7 @@ var unicode_char_set = [
 	'य्', 'र्', 'ल्', 'व्',
 	'स', 'श', 'ष', 'ह', 'क्ष', 'ज्ञ', 
 	'स्', 'श्', 'ष्', 'ह्', 'क्ष्',
-	'त्र', 'द्ध', 'श्र', 'ह्म', 'श्व', 'ड्ड', 'क्र', 'ङ्ग', 'द्य', 'ज्र', 'ष्ट', 'त्त', 'हृ',
+	'त्र', 'द्ध', 'श्र', 'ह्म', 'श्व', 'ड्ड', 'रू', 'क्र', 'ङ्ग', 'द्य', 'ज्र', 'ष्ट', 'त्त', 'हृ',
 	'ङ्क', 'द्व', 'प्र', '्र', '्र', 'श्च', 'न्न',
 	'ओ', 'औ', 'आ', 'अ', 'इ', 'ई', 'उ', 'ऊ', 'ऐ', 'ए', 'ऋ', 
 	'्', '्', 'ऽ', 'ा', 'ी', 'ु', 'ु', 'ु', 'ु', 'ू', 'ू', 'ू', 
